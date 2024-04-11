@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import NavButton from "./ui/NavButton";
 
 const Nav = () => {
-  return (
-    <div>Nav</div>
-  )
-}
+	return <NavButton />;
+};
 
-export default Nav
+export default Nav;

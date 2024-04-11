@@ -37,3 +37,5 @@ next-env.d.ts
 
 # keys
 server/api/keys.go
+
+certificates

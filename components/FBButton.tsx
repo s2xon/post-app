@@ -12,7 +12,7 @@ const FBButton = () => {
 	return (
 		<Button
 			variant="secondary"
-			className="relative z-10 text-white bg-[#fff] bg-opacity-25 shadow-2xl"
+			className="size-auto p-auto relative mx-1 z-10 text-white bg-[#fff] bg-opacity-25 shadow-md hover:bg-slate-900 hover:outline-slate-200 "
 			onClick={handleClick}
 		>
 			Join Post

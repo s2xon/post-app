@@ -2,7 +2,7 @@ import React from 'react'
 
 const HeroSVG = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" className="z-[-1] absolute min-w-[100vw] min-h-[100vh] left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-[51%]">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" className="z-[-10] absolute min-w-[100vw] min-h-[100vh] left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-[51%]">
     <defs>
       <linearGradient
         id="a"
@@ -12,17 +12,17 @@ const HeroSVG = () => {
         x2="1"
         y2="1"
       >
-        <stop offset="0" stop-color="#56BAFF">
+        <stop offset="0" stopColor="#56BAFF">
           <animate
-            attributeName="stop-color"
+            attributeName="stopColor"
             values="#0064FA;#56BAFF;#9FD8FF;#0064FA;"
             dur="20s"
             repeatCount="indefinite"
           ></animate>
         </stop>
-        <stop offset=".5" stop-color="#56BAFF">
+        <stop offset=".5" stopColor="#56BAFF">
           <animate
-            attributeName="stop-color"
+            attributeName="stopColor"
             values="#56BAFF;#9FD8FF;#0064FA;#56BAFF;"
             dur="20s"
             repeatCount="indefinite"
@@ -45,17 +45,17 @@ const HeroSVG = () => {
         x2="1"
         y2="1"
       >
-        <stop offset="0" stop-color="#56BAFF">
+        <stop offset="0" stopColor="#56BAFF">
           <animate
-            attributeName="stop-color"
+            attributeName="stopColor"
             values="#56BAFF;#9FD8FF;#0064FA;#56BAFF;"
             dur="20s"
             repeatCount="indefinite"
           ></animate>
         </stop>
-        <stop offset="1" stop-color="#56BAFF" stop-opacity="0">
+        <stop offset="1" stopColor="#56BAFF" stopOpacity="0">
           <animate
-            attributeName="stop-color"
+            attributeName="stopColor"
             values="#56BAFF;#9FD8FF;#0064FA;#56BAFF;"
             dur="20s"
             repeatCount="indefinite"

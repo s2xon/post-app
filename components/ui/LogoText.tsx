@@ -1,6 +1,10 @@
 import React from "react";
 
-const LogoText = ({ className }) => {
+type LogoTextProps = {
+  className: string;
+};
+
+const LogoText = ({ className }: LogoTextProps) => {
   return (
     <svg
       width="326"
@@ -20,12 +24,12 @@ const LogoText = ({ className }) => {
         x2="132.051"
         y2="89.2734"
         stroke="white"
-        stroke-opacity="0.55"
-        stroke-width="2.1023"
+        strokeOpacity="0.55"
+        strokeWidth="2.1023"
       />
       <mask
         id="mask0_26_24"
-        mask-type = "alpha"
+        mask-type="alpha"
         maskUnits="userSpaceOnUse"
         x="0"
         y="15"
@@ -52,8 +56,8 @@ const LogoText = ({ className }) => {
           y2="145.276"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.613155" stop-color="white" />
-          <stop offset="1" stop-color="white" stop-opacity="0" />
+          <stop offset="0.613155" stopColor="white" />
+          <stop offset="1" stopColor="white" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_26_24"
@@ -63,8 +67,8 @@ const LogoText = ({ className }) => {
           y2="27.1901"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.0238957" stop-color="#0095FF" stop-opacity="0" />
-          <stop offset="0.884036" stop-color="#57BBFF" />
+          <stop offset="0.0238957" stopColor="#0095FF" stopOpacity="0" />
+          <stop offset="0.884036" stopColor="#57BBFF" />
         </linearGradient>
       </defs>
     </svg>
