@@ -3,7 +3,7 @@ import Image from "next/image";
 import HeroSVG from "@/components/ui/HeroSVG";
 import LogoText from "@/components/ui/LogoText";
 import { after } from "node:test";
-import FBButton from "@/components/FBButton";
+import FBButton from "@/components/AuthButtons";
 import Nav from "@/components/Nav";
 
 export default function Home() {
@@ -11,12 +11,12 @@ export default function Home() {
 		<main>
 			<Nav />
 			<HeroSVG />
-			<section className="flex flex-wrap justify-center items-center py-56 mx-[25vw] text-center">
+			<section className="flex flex-col justify-center items-center py-56 mx-[25vw] text-center w-1/2">
 				<h1 className="text-clip text-8xl font-extrabold text-white">
 					Publish <span className="block">Content Here</span>
 				</h1>
-				<h2 className="text-white m-5">All-in-one platform for publishing content easier.</h2>
-				<Button className="text-white bg-zinc-900">
+				<h2 className="text-white m-5 px-11">Experience effortless content publishing with our comprehensive, all-in-one platform.</h2>
+				<Button className="text-white bg-zinc-900 shadow-md">
 					<svg
 						width="18"
 						height="25"

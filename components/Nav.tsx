@@ -1,7 +1,7 @@
 import React from "react";
 import NavButton from "./ui/NavButton";
 import LogoText from "./ui/LogoText";
-import FBButton from "./FBButton";
+import AuthButtons from "./AuthButtons";
 
 const Nav = () => {
 	return (
@@ -13,7 +13,10 @@ const Nav = () => {
 				<NavButton innerText="How it Works"></NavButton>
 				<NavButton innerText="Pricing"></NavButton>
 			</div>
-			<FBButton />
+			<div>
+			<AuthButtons innerText="Join" />
+			<AuthButtons innerText='Sign in' />
+			</div>
 		</nav>
 	);
 };
