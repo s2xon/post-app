@@ -22,6 +22,8 @@ export default function Home() {
 						height="25"
 						viewBox="0 0 18 25"
 						fill="none"
+
+						
 						xmlns="http://www.w3.org/2000/svg"
 						className="h-3"
 					>
