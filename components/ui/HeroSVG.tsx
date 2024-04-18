@@ -5,7 +5,7 @@ const HeroSVG = () => {
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 1920 1080"
-			className="z-[-10] absolute min-w-[100vw] max-h-[1040px] min-h-[1080px] left-1/2 top-[50%] transform -translate-x-1/2 -translate-y-[50vh]"
+			className="z-[-10] absolute min-w-[100vw] max-h-[100vh] min-h-[1040px] left-1/2 top-[50vh] transform -translate-x-1/2 -translate-y-[50vh]"
 		>
 			<ellipse
 				cx="959.5"

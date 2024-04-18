@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import HeroSVG from "@/components/ui/HeroSVG";
 import LogoText from "@/components/ui/LogoText";
 import { after } from "node:test";
@@ -9,8 +8,8 @@ import Nav from "@/components/Nav";
 export default function Home() {
 	return (
 		<main>
-			<Nav />
 			<HeroSVG />
+			<Nav />
 			<section className="flex flex-col justify-center items-center py-56 mx-[25vw] text-center w-1/2">
 				<h1 className="text-clip text-8xl font-extrabold text-white">
 					Publish <span className="block">Content Here</span>
