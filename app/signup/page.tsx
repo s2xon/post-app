@@ -1,7 +1,18 @@
-import React from 'react'
+import React from "react";
+
+function signup = () => {
+
+}
+
 
 export default function page() {
   return (
-    <div>Sign up page</div>
-  )
+    <section>
+      <main>
+        <input className="border-[1px] border-slate-700" type="text" />
+        <input className="border-[1px] border-slate-700" type="text" />
+        <button>Sign up</button>
+      </main>
+    </section>
+  );
 }

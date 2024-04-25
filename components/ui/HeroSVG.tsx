@@ -5,7 +5,7 @@ const HeroSVG = () => {
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 1920 1080"
-			className="z-[-10] absolute min-w-[100vw] max-h-[100vh] min-h-[1040px] left-1/2 top-[50vh] transform -translate-x-1/2 -translate-y-[50vh]"
+			className="z-[-10] absolute min-w-[100vw] h-[100vh] left-1/2 top-[50vh] transform -translate-x-1/2 -translate-y-[50vh]"
 		>
 			<ellipse
 				cx="959.5"
@@ -25,7 +25,7 @@ const HeroSVG = () => {
 				>
 					<stop offset="0" stopColor="#0048B5">
 						<animate
-							attributeName="stopColor"
+							attributeName="stopColor" 
 							dur="20s"
 							repeatCount="indefinite"
 						></animate>

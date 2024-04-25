@@ -1,8 +1,13 @@
-import React from 'react'
+import React from "react";
 
 export default function page() {
-  
   return (
-    <div>Log in page</div>
-  )
+    <section>
+      <main>
+        <input className="border-[1px] border-slate-700" type="text" />
+        <input className="border-[1px] border-slate-700" type="text" />
+        <button>Log in</button>
+      </main>
+    </section>
+  );
 }
