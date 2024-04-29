@@ -39,3 +39,6 @@ next-env.d.ts
 server/api/keys.go
 
 certificates
+
+server.key
+server.crt
