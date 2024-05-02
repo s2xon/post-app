@@ -16,12 +16,12 @@ func enableCors(w *http.ResponseWriter) {
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
-	if r.Method == "Post" {
+	if r.Method == "POST" {
 		log.Println("Serving got POST")
 	}
 }
 func main() {
 	http.HandleFunc("/signup", Handler)
 	log.Println("https://localhost:8080/")
-	log.Fatal(http.ListenAndServeTLS(":8080", "../server.crt", "../server.key", nil))
+	log.Fatal(http.ListenAndServeTLS(":8080", "../certificates/localhost.pem", "../certificates/localhost-key.pem", nil))
 }
