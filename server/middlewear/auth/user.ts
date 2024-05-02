@@ -1,21 +1,11 @@
-import { FormEvent } from "react";
+"use serever";
 
-interface user {
-  Email: string;
-  FirstName: string;
-  LastName: string;
-  Password: string;
-}
-
-export function getUser(event: FormEvent<HTMLFormElement>) {
-  const formData = new FormData(event.currentTarget);
-
-  const User: user = {
-    Email: formData.get("email") as string,
-    FirstName: formData.get("firstName") as string,
-    LastName: formData.get("lastName") as string,
-    Password: formData.get("password") as string,
+export async function getUser(formData: FormData) {
+  const User = {
+    Email: formData.get("email"),
+    FirstName: formData.get("firstName"),
+    LastName: formData.get("lastName"),
+    Password: formData.get("password"),
   };
-  console.log(User)
-  return User;
+  return User
 }

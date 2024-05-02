@@ -1,30 +1,42 @@
 "use client";
 import React from "react";
-import { FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { signUp } from "../server/middlewear/auth/signup";
+import { useFormStatus } from "react-dom"
 
 
 const SignUp = () => {
-  const router = useRouter();
+  const { pending } = useFormStatus()
 
-  async function onSumbit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
- }
   return (
-    <form onSubmit={onSumbit}>
-      <input id="email" className="border-[1px] border-slate-700" type="text" />
+    <form action={signUp}>
       <input
-        id="username"
+        id="email"
+        className="border-[1px] border-slate-700"
+        type="email"
+      />
+      <input
+        id="firstName"
+        name="firstName"
+        className="border-[1px] border-slate-700"
+        type="text"
+      />
+      <input
+        id="lastName"
+        name="lastName"
         className="border-[1px] border-slate-700"
         type="text"
       />
       <input
         id="password"
+        name="password"
         className="border-[1px] border-slate-700"
         type="text"
       />
+
       <input
+        disabled={pending}
         id="submit"
+        name="submit"
         value="Sign Up"
         className="border-[1px] border-slate-700"
         type="submit"

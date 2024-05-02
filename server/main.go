@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
-	// "path"
+  "root/api/database"
 )
 
 func enableCors(w *http.ResponseWriter) {
@@ -18,6 +18,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	if r.Method == "POST" {
 		log.Println("Serving got POST")
+    db.DB()
 	}
 }
 func main() {

@@ -1,13 +1,18 @@
 "use server";
-import { FormEvent } from "react";
+
 import { getUser } from "@/server/middlewear/auth/user";
 
-export async function signUp(event: FormEvent<HTMLFormElement>) {
-  // Check if user is already a user
-  const user = getUser(event);
+const url = "https:/localhost:8080/signup";
 
-  // if already user display error already user
+export async function signUp(formData: FormData) {
+  const user = getUser(formData);
+  const res = await fetch(url, {
+    method: "POST",
+    cache: "no-cache",
 
-  // if not user sign up
-  // re direct to dashboard
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+  });
 }
