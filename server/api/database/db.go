@@ -1,28 +1,26 @@
 package db
 
 import (
-	"context"
 	"fmt"
+	"log"
+	"net/http"
 	"os"
-
-	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-func DB() {
-	url := fmt.Sprintf("%s%s", os.Getenv("SUPABASE_URL"), os.Getenv("SUPABASE_KEY"))
-	dbpool, err := pgxpool.New(context.Background(), url)
+func BuildURL(id string, httpMethod string) (*http.Response, error) {
+	url := fmt.Sprintf("https://bskumkjhgieyszozrjhq.supabase.co/v1/%s", id)
+	req, err := http.NewRequest(httpMethod, url, nil)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to create connection pool: %v\n", err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
-	defer dbpool.Close()
+	req.Header.Set("apikey", os.Getenv("SUPABASE_KEY"))
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("SUPABASE_KEY")))
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	log.Println(resp)
+	return resp, nil
+}
 
-	var greeting string
-	err = dbpool.QueryRow(context.Background(), "select 'Hello, world!'").Scan(&greeting)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
-		os.Exit(1)
-	}
-
-	fmt.Println(greeting)
+func here() {
+log.Println("yes")
 }
