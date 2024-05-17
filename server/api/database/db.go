@@ -1,28 +1,48 @@
 package db
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 
-	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/joho/godotenv"
 )
 
-func DB() {
-	url := fmt.Sprintf("%s%s", os.Getenv("SUPABASE_URL"), os.Getenv("SUPABASE_KEY"))
-	dbpool, err := pgxpool.New(context.Background(), url)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to create connection pool: %v\n", err)
-		os.Exit(1)
-	}
-	defer dbpool.Close()
+type User struct {
+	Id        int8   `json:"id"`
+	Email     string `json:"Email"`
+	FirstName string `json:"FirstName"`
+	LastName  string `json:"LastName"`
+	Password  string `json:"Password"`
+}
 
-	var greeting string
-	err = dbpool.QueryRow(context.Background(), "select 'Hello, world!'").Scan(&greeting)
+func BuildURL(id string, httpMethod string) (*http.Response, error) {
+	url := fmt.Sprintf("https://bskumkjhgieyszozrjhq.supabase.co/rest/v1/%s", id)
+	req, err := http.NewRequest(httpMethod, url, nil)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
-	fmt.Println(greeting)
+	er := godotenv.Load()
+	if er != nil {
+		log.Fatal("Error loading .env file")
+	}
+	supabaseEnv := os.Getenv("SUPABASE_KEY")
+
+	req.Header.Set("apikey", supabaseEnv)
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", supabaseEnv))
+	client := &http.Client{}
+	resp, err := client.Do(req)
+
+	user := &User{}
+
+	dc := json.NewDecoder(resp.Body).Decode(user)
+	if dc != nil {
+		panic(dc)
+	}
+	log.Println(user)
+	log.Println(resp)
+	return resp, nil
 }
