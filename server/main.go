@@ -18,7 +18,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	if r.Method == "POST" {
 		log.Println("Serving got POST")
-		db.BuildURL("users", "GET")
+		log.Println(db.GetUser("sa"))
 	}
 }
 func main() {
