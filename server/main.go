@@ -16,7 +16,7 @@ func enableCors(w *http.ResponseWriter) {
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
-	if r.Method == "POST" { 
+	if r.Method == "POST" {
 		log.Println("Serving got POST")
 		db.SignUp("saadsdsx@iaaadsasdgmail.com", "adssasdsaaaa", "Caasdsdt101!!")
 	}

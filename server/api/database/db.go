@@ -15,24 +15,24 @@ import (
 )
 
 type User struct {
-	Id          int8   `json:"id"`
-	Email       string `json:"email"`
-	Password    string `json:"password"`
-  Data        Data   `json:"data"`
+	Id       int8   `json:"id"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	Data     Data   `json:"data"`
 }
 type Data struct {
-  DisplayName   string    `json:"display_name"`
+	DisplayName string `json:"display_name"`
 }
 
 func SignUp(email string, displayName string, password string) {
 	url := "https://bskumkjhgieyszozrjhq.supabase.co/auth/v1/signup"
 
 	userData := &User{
-		Email:       email,
-		Password:    password,
-    Data: Data{
-      DisplayName: displayName,
-    },
+		Email:    email,
+		Password: password,
+		Data: Data{
+			DisplayName: displayName,
+		},
 	}
 
 	jsonData, err := json.Marshal(userData)
