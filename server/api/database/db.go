@@ -3,12 +3,9 @@ package db
 import (
 	"bytes"
 	"encoding/json"
-	// "fmt"
-
-	// "io"
+	
 	"log"
 	"net/http"
-	// "net/url"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -23,8 +20,13 @@ type User struct {
 type Data struct {
 	DisplayName string `json:"display_name"`
 }
+type Error struct {
+  Code      int     `json:"code"`
+  ErrorCode string  `json:"error_code"`
+  Message   string  `json:"msg"`
+}
 
-func SignUp(email string, displayName string, password string) {
+func SignUp(email string, displayName string, password string) (*Error){
 	url := "https://bskumkjhgieyszozrjhq.supabase.co/auth/v1/signup"
 
 	userData := &User{
@@ -46,7 +48,8 @@ func SignUp(email string, displayName string, password string) {
 	if er != nil {
 		log.Fatal(er)
 	}
-
+  
+    
 	supaBaseKey := os.Getenv("SUPABASE_KEY")
 
 	req.Header.Set("Authorization", "Bearer "+supaBaseKey)
@@ -58,10 +61,21 @@ func SignUp(email string, displayName string, password string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+  
+  if resp.StatusCode != http.StatusOK {
+    errCode := &Error{}
+    err := json.NewDecoder(resp.Body).Decode(errCode)
+    if err != nil {
+      log.Fatal(err)
+    }
+    log.Println(errCode)
+    return errCode 
+  }
 	defer resp.Body.Close()
 
 	log.Println(resp)
+
+  return nil
 }
 
 //func SignIn() {

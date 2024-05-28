@@ -6,9 +6,15 @@ import { useFormStatus } from "react-dom"
 
 const SignUp = () => {
   const { pending } = useFormStatus()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
+    const formData = new FormData(event.currentTarget);
+    const response = await signUp(formData)
+    console.log(response)
+  }
   return (
-    <form action={signUp}>
+    <form onSubmit={handleSubmit}>
       <input
         id="email"
         className="border-[1px] border-slate-700"
