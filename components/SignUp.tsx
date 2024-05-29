@@ -6,14 +6,16 @@ import { useFormState, useFormStatus } from "react-dom";
 const SignUp = () => {
   const { pending } = useFormStatus();
   const [errorMessage, dispatch] = useFormState(signUp, undefined);
-
+  console.log(errorMessage)
   return (
     <form action={dispatch}>
       <input
         id="email"
+        name="email"
         className="border-[1px] border-slate-700"
         type="email"
       />
+      <div></div>
       <input
         id="firstName"
         name="firstName"
@@ -32,7 +34,7 @@ const SignUp = () => {
         className="border-[1px] border-slate-700"
         type="text"
       />
-
+      <div>{errorMessage}</div>
       <input
         disabled={pending}
         id="submit"
