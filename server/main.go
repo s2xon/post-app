@@ -25,6 +25,7 @@ func enableCors(w *http.ResponseWriter) {
  func Handler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	if r.Method == "POST" {
+<<<<<<< HEAD
 		log.Println("got POST")
 		httpErr := db.SignUp("saxattack101@gmail.com", "saxonpayne", "Cat101!!")
 		if httpErr != nil {
@@ -37,6 +38,11 @@ func enableCors(w *http.ResponseWriter) {
      w.Write(jsonData) 
      return
 		}
+=======
+		log.Println("Serving got POST")
+		log.Println(db.GetUser("sa"))
+		db.AddUser("aa", "sa", "sa", "sa")
+>>>>>>> 62096f2 (none)
 	}
 }
 func main() {
