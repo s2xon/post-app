@@ -1,20 +1,14 @@
 "use client";
 import React from "react";
 import { signUp } from "../server/middlewear/auth/signup";
-import { useFormStatus } from "react-dom"
-
+import { useFormState, useFormStatus } from "react-dom";
 
 const SignUp = () => {
-  const { pending } = useFormStatus()
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const { pending } = useFormStatus();
+  const [errorMessage, dispatch] = useFormState(signUp, undefined);
 
-    const formData = new FormData(event.currentTarget);
-    const response = await signUp(formData)
-    console.log(response)
-  }
   return (
-    <form onSubmit={handleSubmit}>
+    <form action={dispatch}>
       <input
         id="email"
         className="border-[1px] border-slate-700"
