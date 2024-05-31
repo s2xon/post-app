@@ -1,11 +1,17 @@
 "use server";
 
-import { getUser } from "@/server/middlewear/auth/user";
-
+import { z } from "zod";
 const url = "https://localhost:8080/signup";
 
-export async function signUp(_currentState: unknown, formData: FormData) {
-  const user = getUser(formData);
+const formSchema = z.object({
+  email: z.string().email("This is not a valid email."),
+  displayName: z.string().min(1),
+  password: z.string().min(6),
+});
+
+export async function signUp(userData: z.infer<typeof formSchema>) {
+  const user = userData;
+  console.log(userData);
 
   try {
     const response = await fetch(url, {
