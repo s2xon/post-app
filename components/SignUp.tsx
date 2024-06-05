@@ -33,8 +33,8 @@ const formSchema = z.object({
 });
 
 const SignUp = () => {
-  const [errorMessage, setErrorMessage] = useState("testing testing");
-  const [trigger, setTrigger] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,17 +47,20 @@ const SignUp = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const result = await signUp(values);
-
     if (!result.success) {
+      setOpen(true);
       setErrorMessage(result.message);
+      setTimeout(() => setOpen(false), 3000);
     } else {
       setErrorMessage("There is still an error");
+      setOpen(true);
+      setTimeout(() => setOpen(false), 3000);
     }
   };
 
   return (
-    <div className="relative w-[100vw] h-[100vh] ">
-      <div className="static flex justify-center items-center w-[100vw] h-[100vh]">
+    <div className="relative w-[100vw] h-[100vh] flex justify-center items-center">
+      <div className="static w-46 p-12 flex justify-center items-center border-solid border-2 border-sky-50">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -95,7 +98,7 @@ const SignUp = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="" {...field} />
+                    <Input placeholder="" {...field} type="password" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,16 +109,19 @@ const SignUp = () => {
           </form>
         </Form>
       </div>
-      {errorMessage && (
-        <Alert
-          variant="destructive"
-          className="absolute w-[15rem] h-16 top-[50%] left-[50%] transform -translate-x-[-30vw] -translate-y-[-38vh]"
-        >
-          <AlertCircle className="w-4 h-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{errorMessage}</AlertDescription>
-        </Alert>
-      )}
+      <div className={"ToastViewport"}>
+        {
+          <Alert
+            variant="destructive"
+            className="ToastRoot w-46"
+            data-state={open ? `open` : `closed`}
+          >
+            <AlertCircle className="w-4 h-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{errorMessage}</AlertDescription>
+          </Alert>
+        }
+      </div>
     </div>
   );
 };
