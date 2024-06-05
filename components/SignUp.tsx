@@ -47,6 +47,9 @@ const SignUp = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const result = await signUp(values);
+    if (result) {
+      return
+    }
     if (!result.success) {
       setOpen(true);
       setErrorMessage(result.message);

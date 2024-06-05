@@ -70,6 +70,15 @@ func SignUp(email string, displayName string, password string) *Error {
 		log.Println(errCode)
 		return errCode
 	}
+  if resp.StatusCode == http.StatusOK {
+    errCode := &Error{}
+    err := json.NewDecoder(resp.Body).Decode(errCode)
+    if err != nil {
+      log.Fatal(err)
+    }
+    log.Println(errCode)
+    return errCode
+  }
 	defer resp.Body.Close()
 
 	log.Println(resp)

@@ -24,16 +24,20 @@ export async function signUp(userData: z.infer<typeof formSchema>) {
     });
 
     const data = await response.json();
-
+    if (response.ok) {
+      return { success: true, message: "Sign up successful!" };
+    }
     if (response.status === 422) {
-      return {success: false, message: "User already exists."};
+      return { success: false, message: "User already exists." };
     }
     if (!response.ok) {
-      return {success: false, message: "An error occurred."};
+      return {
+        success: false,
+        message: "An error occurred, please try again later.",
+      };
     }
-    return {success: true, message: "Sign up successful!"};
   } catch (error) {
-    console.error("error", error);
-    return {success: false, message: "Network error. Please try again."};
+    console.log("server -");
+    console.log(error);
   }
 }

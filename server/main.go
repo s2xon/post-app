@@ -7,6 +7,12 @@ import (
 	"root/api/database"
 )
 
+type User struct {
+	Email       string `json:"email"`
+	DisplayName string `json:"displayName"`
+	Password    string `json:"password"`
+}
+
 type Error struct {
 	Code      int    `json:"code"`
 	ErrorCode string `json:"error_code"`
@@ -25,7 +31,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	if r.Method == "POST" {
 		log.Println("got POST")
-		httpErr := db.SignUp("saxattack101@gmail.com", "saxonpayne", "Cat101!!")
+		var user User
+
+		err := json.NewDecoder(r.Body).Decode(&user)
+		if err != nil {
+			log.Println(err)
+		}
+
+		httpErr := db.SignUp(user.Email, user.DisplayName, user.Password)
 		if httpErr != nil {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(httpErr.Code)
@@ -36,6 +49,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			w.Write(jsonData)
 			return
 		}
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(200)
+    jsonData, err := json.Marshal(httpErr)
+    if err != nil {
+      log.Fatal(err)
+    }
+    w.Write(jsonData)
 	}
 }
 func main() {
