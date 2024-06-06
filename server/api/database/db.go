@@ -62,6 +62,7 @@ func SignUp(email string, displayName string, password string) *Error {
 	}
 
 	if resp.StatusCode != http.StatusOK {
+		log.Println("Running err Code")
 		errCode := &Error{}
 		err := json.NewDecoder(resp.Body).Decode(errCode)
 		if err != nil {
@@ -70,15 +71,16 @@ func SignUp(email string, displayName string, password string) *Error {
 		log.Println(errCode)
 		return errCode
 	}
-  if resp.StatusCode == http.StatusOK {
-    errCode := &Error{}
-    err := json.NewDecoder(resp.Body).Decode(errCode)
-    if err != nil {
-      log.Fatal(err)
-    }
-    log.Println(errCode)
-    return errCode
-  }
+	if resp.StatusCode == http.StatusOK {
+		log.Println("Running 200 Code")
+		errCode := &Error{
+			Code:      200,
+			ErrorCode: "Status OK",
+			Message:   "Successful signup",
+		}
+		log.Println(errCode)
+		return errCode
+	}
 	defer resp.Body.Close()
 
 	log.Println(resp)
