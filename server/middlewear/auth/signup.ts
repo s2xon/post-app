@@ -1,5 +1,7 @@
 "use server";
 
+import { authUser } from "@/server/middlewear/auth/user";
+
 import { z } from "zod";
 const url = "https://localhost:8080/signup";
 
@@ -25,6 +27,14 @@ export async function signUp(userData: z.infer<typeof formSchema>) {
 
     const data = await response.json();
     if (response.ok) {
+      const newUser = authUser(
+        data.user.id,
+        data.access_token,
+        data.refresh_token,
+        data.user.email,
+        data.user.user_metadata.display_name,
+      );
+      console.log(newUser);
       return { success: true, message: "Sign up successful!" };
     }
     if (response.status === 422) {

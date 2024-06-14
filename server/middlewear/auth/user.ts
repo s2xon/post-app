@@ -1,11 +1,34 @@
-"use serever";
+interface User {
+  id?: string;
+  token?: string;
+  refresh_token?: string;
+  email?: string;
+  displayName?: string;
+}
 
-export async function getUser(formData: FormData) {
-  const User = {
-    Email: formData.get("email"),
-    FirstName: formData.get("firstName"),
-    LastName: formData.get("lastName"),
-    Password: formData.get("password"),
+let user: User = {};
+
+export function getUser() {
+  return user;
+}
+
+export function authUser(
+  id: string,
+  token: string,
+  refresh_token: string,
+  email: string,
+  displayName: string,
+): User {
+  user.id = id;
+  user.token = token;
+  user.refresh_token = refresh_token;
+  user.email = email;
+  user.displayName = displayName;
+  return {
+    id: id,
+    token: token,
+    refresh_token: refresh_token,
+    email: email,
+    displayName: displayName,
   };
-  return User
 }

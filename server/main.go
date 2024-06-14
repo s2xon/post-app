@@ -7,6 +7,21 @@ import (
 	"root/api/database"
 )
 
+type Data struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+	User         User   `json:"user"`
+}
+type AuthUser struct {
+	Id       string   `json:"id"`
+	Email    string   `json:"email"`
+	Password string   `json:"password"`
+	Data     MetaData `json:"data"`
+}
+type MetaData struct {
+	DisplayName string `json:"display_name"`
+}
+
 type User struct {
 	Email       string `json:"email"`
 	DisplayName string `json:"displayName"`
@@ -38,7 +53,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 		}
 
-		httpErr := db.SignUp(user.Email, user.DisplayName, user.Password)
+		data, httpErr := auth.SignUp(user.Email, user.DisplayName, user.Password)
 		if httpErr != nil {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(httpErr.Code)
@@ -49,14 +64,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			w.Write(jsonData)
 			return
 		}
-    w.Header().Set("Content-Type", "application/json")
-    w.WriteHeader(http.StatusOK)
-    log.Println("Break")
-    jsonData, err := json.Marshal(httpErr)
-    if err != nil {
-      log.Fatal(err)
-    }
-    w.Write(jsonData)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		log.Println("Break")
+		jsonData, err := json.Marshal(data)
+		if err != nil {
+			log.Fatal(err)
+		}
+		w.Write(jsonData)
 	}
 }
 func main() {

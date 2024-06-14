@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { AlertCircle } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { authUser } from "@/server/middlewear/auth/user";
 
 const formSchema = z.object({
   email: z.string().email("This is not a valid email."),
@@ -47,8 +48,9 @@ const SignUp = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const result = await signUp(values);
-    if (result) {
-      return
+    if (result.success) {
+      authUser()
+      return;
     }
     if (!result.success) {
       setOpen(true);
@@ -108,7 +110,9 @@ const SignUp = () => {
               )}
             />
 
-            <Button type="submit">Submit</Button>
+            <Button className="text-white" type="submit">
+              Submit
+            </Button>
           </form>
         </Form>
       </div>
