@@ -42,7 +42,7 @@ func enableCors(w *http.ResponseWriter) {
 
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) {
+func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	if r.Method == "POST" {
 		log.Println("got POST")
@@ -74,8 +74,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		w.Write(jsonData)
 	}
 }
+
+func CheckUserHandler(w http.ResponseWriter, r *http.Request) {
+  
+}
+
 func main() {
-	http.HandleFunc("/signup", Handler)
+	http.HandleFunc("/signup", SignUpHandler)
 	log.Println("https://localhost:8080/")
 	log.Fatal(http.ListenAndServeTLS(":8080", "../certificates/localhost.pem", "../certificates/localhost-key.pem", nil))
 }

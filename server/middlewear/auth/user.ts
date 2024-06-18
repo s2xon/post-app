@@ -6,7 +6,13 @@ interface User {
   displayName?: string;
 }
 
-let user: User = {};
+let user: User = {
+  id: undefined,
+  token: undefined,
+  refresh_token: undefined,
+  email: undefined,
+  displayName: undefined,
+};
 
 export function getUser() {
   return user;

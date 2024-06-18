@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { signUp } from "../server/middlewear/auth/signup";
-import { useFormState, useFormStatus } from "react-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -49,7 +48,6 @@ const SignUp = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const result = await signUp(values);
     if (result.success) {
-      authUser()
       return;
     }
     if (!result.success) {

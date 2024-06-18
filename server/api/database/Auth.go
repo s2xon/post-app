@@ -119,10 +119,38 @@ func SignUp(email string, displayName string, password string) (*JsonData, *Erro
 	return nil, nil
 }
 
+func CheckUser(jwt_token string) bool {
+	er := godotenv.Load()
+	if er != nil {
+		log.Fatal(er)
+	}
+	supaBaseKey := os.Getenv("SUPABASE_KEY")
+	url := "https://bskumkjhgieyszozrjhq.supabase.co/auth/v1/user"
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("Authorization", "Bearer "+jwt_token)
+	req.Header.Set("apikey", supaBaseKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode == 200 {
+		return true
+	} else {
+		return false
+	}
+}
+
 //func SignIn() {
 //
 //}
-//
 //func GetUser() {
 //
 //}
