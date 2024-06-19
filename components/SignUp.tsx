@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { checkUser } from "@/server/middlewear/auth/checkuser";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,6 +23,9 @@ import { AlertCircle } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { authUser } from "@/server/middlewear/auth/user";
+import { redirect } from "next/navigation";
+import { NextRequest } from "next/server";
+import { send } from "@/server/middlewear/router/send"
 
 const formSchema = z.object({
   email: z.string().email("This is not a valid email."),
@@ -48,7 +53,7 @@ const SignUp = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const result = await signUp(values);
     if (result.success) {
-      return;
+      send("/dashboard")
     }
     if (!result.success) {
       setOpen(true);

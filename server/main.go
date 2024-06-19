@@ -2,9 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"io"
 	"log"
 	"net/http"
-	"root/api/database"
+	"root/api/authentication"
 )
 
 type Data struct {
@@ -32,6 +33,9 @@ type Error struct {
 	Code      int    `json:"code"`
 	ErrorCode string `json:"error_code"`
 	Message   string `json:"msg"`
+}
+type Cookie struct {
+	Jwt string `json:"jwt"`
 }
 
 func enableCors(w *http.ResponseWriter) {
@@ -76,11 +80,19 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CheckUserHandler(w http.ResponseWriter, r *http.Request) {
-  
+	var cookie *Cookie
+	body, err := io.ReadAll(r.Body)
+  log.Println([]bytes(body))
+	if err != nil {
+		log.Fatal(err)
+	}
+	json.Unmarshal(body, &cookie)
+	log.Println(cookie)
 }
 
 func main() {
 	http.HandleFunc("/signup", SignUpHandler)
+	http.HandleFunc("/checkuser", CheckUserHandler)
 	log.Println("https://localhost:8080/")
 	log.Fatal(http.ListenAndServeTLS(":8080", "../certificates/localhost.pem", "../certificates/localhost-key.pem", nil))
 }
