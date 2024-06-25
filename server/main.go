@@ -79,15 +79,51 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func SignInHandler(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func CheckUserHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("_______________________CHECKUSER_______________________")
 	var cookie *Cookie
 	body, err := io.ReadAll(r.Body)
-  log.Println([]bytes(body))
 	if err != nil {
 		log.Fatal(err)
 	}
 	json.Unmarshal(body, &cookie)
-	log.Println(cookie)
+	isUser := auth.CheckUser(cookie.Jwt)
+	log.Println(isUser)
+	if isUser {
+		code := Error{
+			Code:      200,
+			ErrorCode: "200",
+			Message:   "User is user.",
+		}
+		json, err := json.Marshal(code)
+		if err != nil {
+			panic(err)
+		}
+		w.Header().Set("Content-Type", "application/json:")
+		w.WriteHeader(http.StatusOK)
+		w.Write(json)
+	}
+	if !isUser {
+		log.Println("This is not a user")
+		code := Error{
+			Code:      404,
+			ErrorCode: "404",
+			Message:   "Unauthorized User.",
+		}
+		json, err := json.Marshal(code)
+		if err != nil {
+			panic(err)
+		}
+		w.Header().Set("Content-Type", "application/json:")
+		w.WriteHeader(code.Code)
+		w.Write(json)
+
+	}
+	return
 }
 
 func main() {

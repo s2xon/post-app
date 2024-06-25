@@ -25,7 +25,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { authUser } from "@/server/middlewear/auth/user";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
-import { send } from "@/server/middlewear/router/send"
+import { send } from "@/server/middlewear/router/send";
 
 const formSchema = z.object({
   email: z.string().email("This is not a valid email."),
@@ -53,15 +53,12 @@ const SignUp = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const result = await signUp(values);
     if (result.success) {
-      send("/dashboard")
+      setOpen(false);
+      send("/dashboard");
     }
     if (!result.success) {
       setOpen(true);
       setErrorMessage(result.message);
-      setTimeout(() => setOpen(false), 3000);
-    } else {
-      setErrorMessage("There is still an error");
-      setOpen(true);
       setTimeout(() => setOpen(false), 3000);
     }
   };

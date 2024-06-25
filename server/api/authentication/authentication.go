@@ -141,6 +141,7 @@ func CheckUser(jwt_token string) bool {
 		log.Fatal(err)
 	}
 	defer resp.Body.Close()
+	log.Println(resp.StatusCode)
 	if resp.StatusCode == 200 {
 		return true
 	} else {
@@ -148,9 +149,32 @@ func CheckUser(jwt_token string) bool {
 	}
 }
 
-//func SignIn() {
-//
-//}
+func SignIn() {
+	er := godotenv.Load()
+	if er != nil {
+		log.Fatal(er)
+	}
+	supaBaseKey := os.Getenv("SUPABASE_KEY")
+	url := "https://bskumkjhgieyszozrjhq.supabase.co/auth/v1/token?grant_type=password"
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("Authorization", "Bearer "+ supaBaseKey)
+	req.Header.Set("apikey", supaBaseKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	log.Println(resp.StatusCode)
+
+}
+
 //func GetUser() {
 //
 //}

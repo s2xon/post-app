@@ -7,8 +7,6 @@ import { cookies } from "next/headers";
 
 const url = "https://localhost:8080/signup";
 
-
-
 const formSchema = z.object({
   email: z.string().email("This is not a valid email."),
   displayName: z.string().min(1),
@@ -39,7 +37,7 @@ export async function signUp(userData: z.infer<typeof formSchema>) {
         data.user.user_metadata.display_name,
       );
       console.log(newUser);
-      cookies().set('jwt', data.access_token, {secure: true})
+      cookies().set("jwt", data.access_token, { secure: true });
 
       return { success: true, message: "Sign up successful!" };
     }
@@ -55,5 +53,9 @@ export async function signUp(userData: z.infer<typeof formSchema>) {
   } catch (error) {
     console.log("server -");
     console.log(error);
+    return {
+      success: false,
+      message: "An error occurred, please try again later.",
+    };
   }
 }
