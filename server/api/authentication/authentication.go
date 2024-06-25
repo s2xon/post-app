@@ -149,7 +149,7 @@ func CheckUser(jwt_token string) bool {
 	}
 }
 
-func SignIn() {
+func SignIn(email string, password string) {
 	er := godotenv.Load()
 	if er != nil {
 		log.Fatal(er)
@@ -157,11 +157,21 @@ func SignIn() {
 	supaBaseKey := os.Getenv("SUPABASE_KEY")
 	url := "https://bskumkjhgieyszozrjhq.supabase.co/auth/v1/token?grant_type=password"
 
-	req, err := http.NewRequest("GET", url, nil)
+	userData := &User{
+		Email:    email,
+		Password: password,
+	}
+
+	jsonData, err := json.Marshal(userData)
 	if err != nil {
 		log.Fatal(err)
 	}
-	req.Header.Set("Authorization", "Bearer "+ supaBaseKey)
+
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("Authorization", "Bearer "+supaBaseKey)
 	req.Header.Set("apikey", supaBaseKey)
 	req.Header.Set("Content-Type", "application/json")
 
@@ -171,7 +181,9 @@ func SignIn() {
 		log.Fatal(err)
 	}
 	defer resp.Body.Close()
-	log.Println(resp.StatusCode)
+
+	body, _ := io.ReadAll(resp.Body)
+	log.Println(string(body))
 
 }
 

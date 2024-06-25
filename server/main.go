@@ -80,7 +80,12 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SignInHandler(w http.ResponseWriter, r *http.Request) {
-
+	var user *User
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		panic(err)
+	}
+  log.Println(user)
 }
 
 func CheckUserHandler(w http.ResponseWriter, r *http.Request) {
